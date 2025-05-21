@@ -46,24 +46,23 @@ class ProductController extends Controller
             'sku' => 'required|string|max:50',
             'category' => 'required|string|max:50',
             'stock' => 'required|numeric|min:0',
-            'is_active' => 'required|numeric',
             'feature_id' => 'required|exists:features,id',
         ]);
         // Create a new product
         Product::create($validatedData);
-
+        $productName = $validatedData['name'];
         // Redirect to the products index page with a success message
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('products.index')->with('success', $productName . ' is created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Product $product)
     {
         //route --> /products/{id}
         //Fetch a single product from the database and pass it to the view
-        $product = Product::with('feature')->findOrFail($id);
+        $product->load('feature');
         return view('products.show', ['product' => $product]);
     }
 
@@ -88,6 +87,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // Get the product name for the success message
+        $productName = $product->name;
+        // Delete the product
+        $product->delete();
+
+        // Redirect to the products index page with a success message
+        return redirect()->route('products.index')->with('success', $productName . ' is deleted successfully.');
     }
 }
