@@ -11,17 +11,22 @@ Route::get('/', function () {
 });
 
 //AUTHENTICATION ROUTES
-Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
-Route::get('/login',  [AuthController::class, 'showLogin'])->name('show.login');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/login',  [AuthController::class, 'login'])->name('login');
+Route::middleware('guest')->controller(AuthController::class)->group(function () {
+    Route::get('/register', 'showRegister')->name('show.register');
+    Route::get('/login', 'showLogin')->name('show.login');
+    Route::post('/register', 'register')->name('register');
+    Route::post('/login', 'login')->name('login');
+});
 Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
 //PRODUCTS ROUTES
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::middleware('auth')->controller(ProductController::class)->group(function () {
+    Route::get('/products', 'index')->name('products.index');
+    Route::get('/products/create', 'create')->name('products.create');
+    Route::get('/products/{product}', 'show')->name('products.show');
+    Route::post('/products', 'store')->name('products.store');
+    Route::delete('/products/{product}', 'destroy')->name('products.destroy');
+});
+
 
 //
