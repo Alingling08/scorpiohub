@@ -27,5 +27,4 @@ class Product extends Model
     {
         return $this->belongsTo(Features::class);
     }
-    //$product->feature->name
 }
