@@ -40,9 +40,9 @@ p {
 header {
     @apply bg-white;
 
-    nav {
+    /* nav {
         @apply flex items-center gap-5 max-w-screen-lg mx-auto px-12 py-4;
-    }
+    } */
     h1 {
         @apply mr-auto;
     }
