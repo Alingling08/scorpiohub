@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Features;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
         $products = Product::with('feature')
             ->where('is_active', 1)
             ->orderBy('created_at', 'desc')
