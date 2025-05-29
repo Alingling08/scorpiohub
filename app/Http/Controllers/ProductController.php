@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products = Product::with('feature')
             ->where('is_active', 1)
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(8);
 
         return view('products.index', ["products" => $products]);
     }

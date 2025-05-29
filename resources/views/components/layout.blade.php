@@ -4,85 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ScorpioHub | Home</title>
+    <title>{{ env('APP_NAME') }} | Home</title>
+
+    <link rel="icon" href="{{ asset('scorpiohub-logo.png') }}" type="image/png">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-
     <header>
+        <nav class="bg-gray-800" x-data="{ mobileOpen: false }">
+            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div class="relative flex h-16 items-center justify-between">
+                    <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                        <!-- Mobile menu button-->
+                        <button type="button" @click="mobileOpen = !mobileOpen"
+                            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="absolute -inset-0.5"></span>
+                            <span class="sr-only">Open main menu</span>
+                            <!--
+            Icon when menu is closed.
 
-        <nav class="bg-white dark:bg-gray-900  w-full top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-3 sm:py-0 ">
-                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="{{ asset('images/scorpiohub-logo.png') }}" class="h-8" alt="ScorpioHub Logo">
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ScorpioHub</span>
-                </a>
-
-                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                    <ul
-                        class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <a href="/"
-                                class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                                aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('products.index') }}"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">All
-                                Products</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('products.create') }}"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Create
-                                Product</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="flex md:order-2 space-x-0 md:space-x-0 rtl:space-x-reverse">
-                    <div class="inline-flex rounded-md shadow-xs" role="group">
-                        <button type="button"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-transparent   dark:border-white dark:text-white">
-                            <svg class="w-3
-                            h-3 me-2" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+            Menu open: "hidden", Menu closed: "block"
+          -->
+                            <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
-                            {{ Auth::user()->name }}
+                            <!--
+            Icon when menu is open.
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+                            <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
                         </button>
-                        <form action="{{ route('logout') }}" method="POST" class="m-0">
-                            @csrf
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600  rounded-e-lg  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800">
-                                <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
-                                </svg>
-                            </button>
-                        </form>
                     </div>
-                    <button data-collapse-toggle="navbar-sticky" type="button"
-                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                        aria-controls="navbar-sticky" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 17 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 1h15M1 7h15M1 13h15" />
-                        </svg>
-                    </button>
+
+                    <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                        <a href="/" class="flex shrink-0 items-center">
+                            <img class="h-8 w-auto" src="/images/scorpiohub.png" alt="{{ env('APP_NAME') }}">
+                            <span class="rounded-md text-lg font-black text-white">{{ env('APP_NAME') }}</span>
+                        </a>
+                        <div class="hidden sm:ml-6 sm:block">
+                            <div class="flex space-x-4">
+                                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                <a href="/"
+                                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                    aria-current="page">Dashboard</a>
+                                <a href="{{ route('products.create') }}"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Create
+                                    Product</a>
+                                <a href="{{ route('products.index') }}"
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">All
+                                    Products</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                        <button type="button"
+                            class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                            <span class="absolute -inset-1.5"></span>
+                            <span class="sr-only">View notifications</span>
+                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                            </svg>
+                        </button>
+
+                        <!-- Profile dropdown -->
+                        <div class="relative ml-3" x-data="{ open: false }">
+                            <div>
+                                <button type="button" @click="open = !open"
+                                    class="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+                                    id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                    <span class="absolute -inset-1.5"></span>
+                                    <span class="sr-only">Open user menu</span>
+                                    <img class="size-8 rounded-full" src="https://picsum.photos/200" alt="">
+                                </button>
+                            </div>
+
+                            <!--
+            Dropdown menu, show/hide based on menu state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+                            <div x-show="open" @click.outside="open = false"
+                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white  shadow-lg ring-1 ring-black/5 focus:outline-hidden"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                tabindex="-1">
+
+                                <div class="min-w-0 flex-auto px-4">
+                                    <p class="text-sm/6 font-semibold text-gray-900">{{ auth()->user()->name }}</p>
+                                    </p>
+                                </div>
+
+                                <hr>
+                                <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-1">Settings</a>
+                                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full flex-end focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 py-1.5  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer"
+                                        role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div id="mobile-menu" x-show="mobileOpen" @click.away="mobileOpen = false">
+                <div class="space-y-1 px-2 pt-2 pb-3">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+                        aria-current="page">Dashboard</a>
+                    <a href="{{ route('products.create') }}"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Create
+                        Product</a>
+                    <a href="{{ route('products.index') }}"
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">All
+                        Products</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="container">
+    <main class="w-full mx-auto px-8">
         @if (session('success'))
             <div id="flash"
                 class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
@@ -109,8 +174,11 @@
 
     <script>
         setTimeout(function() {
-            document.getElementById("flash").style.display = "none";
-        }, 10000); // 10000 milliseconds = 10 seconds
+            const flash = document.getElementById("flash");
+            if (flash) {
+                flash.style.display = "none";
+            }
+        }, 10000);
     </script>
 </body>
 
