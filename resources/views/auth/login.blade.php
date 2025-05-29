@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ScorpioHub | Home</title>
+    <title>{{ env('APP_NAME') }} | Login</title>
+
+    <link rel="icon" href="{{ asset('scorpiohub-logo.png') }}" type="image/png">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -13,9 +15,8 @@
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                {{-- <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                    alt="logo"> --}}
-                ScorpioHub
+                <img class="w-8 h-8 mr-2" src="/images/scorpiohub-logo.png" alt="logo">
+                Scorpio Hub
             </a>
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -26,11 +27,18 @@
                     </h1>
                     {{-- VALIDATION ERRORS --}}
                     @if ($errors->any())
-                        <div class="mt-4 bg-red-50 border-l-4 py-2 border-red-400 text-red-700 rounded-md">
-                            @foreach ($errors->all() as $error)
-                                <p class="ml-2">{{ $error }}</p>
-                            @endforeach
+                        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            role="alert">
+                            <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Ensure that requirements are met.</span>
 
+                            </div>
                         </div>
                     @endif
                     <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST">
@@ -40,15 +48,27 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                 email</label>
                             <input type="email" name="email" id="email" value="{{ old('email') }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@company.com" required="">
+                                placeholder="name@company.com"
+                                class="border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                                @error('email') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror"
+                                required>
+
+                            @error('email')
+                                <p class="mt-2 text-xs text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <div>
                             <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
+                                class="border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                                @error('password') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror"
+                                required>
+                            @error('password')
+                                <p class="mt-2 text-xs text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <div class="flex  items-end">
                             {{-- <div class="flex "> --}}

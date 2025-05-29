@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -17,6 +22,8 @@ class AuthController extends Controller
 
     public function showLogin()
     {
+        // Mail::to('sample@email.com')->send(new WelcomeMail(Auth::user()));
+
         return view('auth.login');
     }
 
@@ -31,24 +38,62 @@ class AuthController extends Controller
         // Create a new user
         $user =  User::create($validatedData);
         Auth::login($user);
+        event(new Registered($user));
         return redirect()->route('products.index');
     }
+
+    public function verifyNotice()
+    {
+        return view('auth.verify-email');
+    }
+
+    //Email Verification Handler Route
+    public function verifyEmail(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+
+        return redirect()->route('products.index');
+    }
+
+    //Resending the Verification Email Route
+    public function verifyHandler(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    }
+
     public function login(Request $request)
     {
-        // Validate the request data
+        // Step 1: Validate input
         $validatedData = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($validatedData)) {
-            $request->session()->regenerate();
-            return redirect()->route('products.index');
+        $remember = $request->filled('remember'); // true if checkbox is checked
+
+        // Step 2: Check if the user exists
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'This email is not registered.'
+            ])->withInput();
         }
 
-        throw ValidationException::withMessages([
-            'credentials' => 'Sorry, incorrect credentials!'
-        ]);
+        // Step 3: Check if password is correct
+        if (!Hash::check($validatedData['password'], $user->password)) {
+            return back()->withErrors([
+                'password' => 'Incorrect password.'
+            ])->withInput();
+        }
+
+        // Step 4: Log the user in
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended('/');
     }
 
     public function logout(Request $request)
@@ -58,6 +103,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('show.login');
+        return redirect('/');
     }
 }
