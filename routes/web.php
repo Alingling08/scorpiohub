@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
 //PRODUCTS AUTHENTICATED ROUTES
 Route::middleware(['auth', 'verified'])->controller(ProductController::class)->group(function () {
-    Route::get('/', 'index')->name('products.index');
+    // Route::get('/', 'index')->name('products.index');
     // Route::get('/products', 'index')->name('products.index');
     // Route::get('/products/create', 'create')->name('products.create');
     // Route::get('/products/{product}', 'show')->name('products.show');
