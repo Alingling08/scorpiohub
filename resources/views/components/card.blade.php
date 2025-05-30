@@ -3,11 +3,15 @@
 <div
     class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 {{ $highlight ? 'highlight' : '' }}">
     <div class="h-56 w-full">
-        <a href="#">
-            <img class="mx-auto h-full dark:hidden"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-light.svg" alt="" />
-            <img class="mx-auto hidden h-full dark:block"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-dark.svg" alt="" />
+        <a href="{{ $href }}">
+            @if ($product->image)
+                <img class="mx-auto h-full " src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" />
+            @else
+                <img class="mx-auto h-full " src="{{ asset('storage/product_images/default_product.jpg') }}"
+                    alt="{{ $product->name }}" />
+            @endif
+            {{-- <img class="mx-auto hidden h-full dark:block"
+                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-dark.svg" alt="" /> --}}
         </a>
     </div>
 
@@ -53,7 +57,7 @@
             </div>
         </div> --}}
 
-        <a href="#"
+        <a href="{{ $href }}"
             class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ $product->name }}</a>
         <span
             class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
@@ -122,20 +126,15 @@
             </li>
         </ul> --}}
 
-        <div class=" flex items-center justify-between gap-4">
+        <div class="md:flex sm:flex-wrap items-center justify-between gap-2 ">
 
             <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
                 Php {{ $product->price }}</p>
 
 
             <a href="{{ $href }}"
-                class="cursor-pointer inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                {{-- <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-                </svg> --}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="cursor-pointer mx-auto justify-center w-full xl:w-auto text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                </svg> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-eye-fill" viewBox="0 0 16 16">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
                     <path

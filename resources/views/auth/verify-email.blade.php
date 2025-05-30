@@ -35,9 +35,9 @@
             </div>
             <div
                 class="bg-base-100 shadow-base-300/20 z-1 w-full space-y-6 rounded-xl p-6 shadow-md sm:max-w-md lg:p-8">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 w-full mx-auto">
                     <img src="/images/scorpiohub-logo.png" class="size-8" alt="brand-logo" />
-                    <h2 class="text-base-content text-xl font-bold">Scorpio Hub</h2>
+                    <h1 class="text-base-content text-xl font-bold">Scorpio Hub</h1>
                 </div>
                 <div>
                     <h3 class="text-base-content mb-1.5 text-2xl font-semibold">Verify your email</h3>

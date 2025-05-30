@@ -18,6 +18,7 @@ class Product extends Model
         'is_active',
         'image',
         'feature_id',
+        'user_id'
     ];
 
     /** @use HasFactory<\Database\Factories\ProductFactory> */

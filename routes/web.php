@@ -6,9 +6,7 @@ use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\ProductController;
 use App\Models\Features;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 //AUTHENTICATION ROUTES
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
@@ -16,6 +14,7 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::get('/login', 'showLogin')->name('show.login');
     Route::post('/register', 'register')->name('register');
     Route::post('/login', 'login')->name('login');
+    Route::get('/forgot-password', 'forgotPassword')->name('password.request');
 });
 Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
@@ -39,8 +38,14 @@ Route::middleware(['auth', 'verified'])->controller(ProductController::class)->g
     // Route::get('/products/{product}', 'show')->name('products.show');
     // Route::post('/products', 'store')->name('products.store');
     // Route::delete('/products/{product}', 'destroy')->name('products.destroy');
+    Route::get('/', function () {
+        return view('welcome');
+    });
     Route::resource('products', ProductController::class);
+    Route::get('/my-products', 'myProducts')->name('products.myProducts');
 });
 
-
+// Route::get('/forgot-password', function () {
+//     return view('auth.forgot-password');
+// })->middleware('guest')->name('password.request');
 //

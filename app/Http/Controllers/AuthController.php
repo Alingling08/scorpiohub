@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserSubscribed;
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
 use App\Models\User;
@@ -38,12 +39,22 @@ class AuthController extends Controller
         // Create a new user
         $user =  User::create($validatedData);
         Auth::login($user);
+
         event(new Registered($user));
+
+        if ($request->subscribe) {
+            event(new UserSubscribed($user));
+        }
+
         return redirect()->route('products.index');
     }
 
     public function verifyNotice()
     {
+        // if (Auth::check()) {
+        //     return redirect()->route('products.index');
+        // }
+
         return view('auth.verify-email');
     }
 
@@ -104,5 +115,10 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function forgotPassword()
+    {
+        return view('auth.forgot-password');
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Features;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -42,6 +43,7 @@ class ProductFactory extends Factory
             'image' => fake()->imageUrl(),
             'stock' => fake()->numberBetween(0, 100),
             'feature_id' => Features::inRandomOrder()->first()->id, // Assuming you have a Features model and the features table is populated
+            'user_id' => User::inRandomOrder()->first()->id,
             'is_active' => fake()->boolean(),
         ];
     }
