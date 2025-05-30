@@ -39,21 +39,23 @@
                             </div>
                         </div>
                     @endif
-                    <form class="space-y-4 md:space-y-6" action="{{ route('register') }}" method="POST">
+
+
+                    <form class="max-w-sm mx-auto" action="{{ route('register') }}" method="POST">
                         @csrf
-                        <div>
+                        <div class="mb-5">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}"
-                                class="border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('name') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror"
-                                required>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" required
+                                class="border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                                @error('name') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror">
 
                             @error('name')
                                 <p class="mt-2 text-xs text-red-600 dark:text-red-500"><span
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-5">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
                                 Address</label>
@@ -67,7 +69,7 @@
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-5">
                             <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" required
@@ -79,7 +81,7 @@
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-5">
                             <label for="confirm-password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
                                 password</label>
@@ -89,17 +91,14 @@
                                 @error('password') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror">
 
                         </div>
-                        <div class="flex items-start">
+                        <div class="flex items-start mb-5">
                             <div class="flex items-center h-5">
-                                <input id="terms" aria-describedby="terms" type="checkbox"
-                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                    required="">
+                                <input id="subscribe" name="subscribe" type="checkbox"
+                                    class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
                             </div>
-                            <div class="ml-3 text-sm">
-                                <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the
-                                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                                        href="#">Terms and Conditions</a></label>
-                            </div>
+                            <label for="subscribe"
+                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to our
+                                newsletter.</label>
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Create
@@ -110,6 +109,7 @@
                                 here</a>
                         </p>
                     </form>
+
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1
                         class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Sign in to your account
+                        Forgot Password
                     </h1>
                     {{-- VALIDATION ERRORS --}}
                     @if ($errors->any())
@@ -58,33 +58,14 @@
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
                         </div>
-                        <div>
-                            <label for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••"
-                                class="border text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                                @error('password') border-red-500 bg-red-50 text-red-900 @else border-gray-300 text-gray-900 @enderror"
-                                required>
-                            @error('password')
-                                <p class="mt-2 text-xs text-red-600 dark:text-red-500"><span
-                                        class="font-medium">{{ $message }}</span></p>
-                            @enderror
-                        </div>
-                        <div class="flex  items-end">
-                            {{-- <div class="flex "> --}}
-                            <a href="{{ route('password.request') }}"
-                                class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
-                                password?</a>
-                            {{-- </div> --}}
 
-                        </div>
                         <button type="submit"
                             class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Sign
                             in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don’t have an account yet? <a href="{{ route('show.register') }}"
-                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
-                                up</a>
+                            Already have an account? <a href="{{ route('show.login') }}"
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login
+                                here</a>
                         </p>
                     </form>
                 </div>
