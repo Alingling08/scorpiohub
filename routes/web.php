@@ -6,7 +6,9 @@ use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\ProductController;
 use App\Models\Features;
 
-
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 //AUTHENTICATION ROUTES
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
@@ -43,9 +45,7 @@ Route::middleware(['auth', 'verified'])->controller(ProductController::class)->g
     // Route::get('/products/{product}', 'show')->name('products.show');
     // Route::post('/products', 'store')->name('products.store');
     // Route::delete('/products/{product}', 'destroy')->name('products.destroy');
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
+
     Route::resource('products', ProductController::class);
     Route::get('/my-products', 'myProducts')->name('products.myProducts');
 });
