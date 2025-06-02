@@ -25,6 +25,9 @@
                         class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Sign in to your account
                     </h1>
+                    @if (session('status'))
+                        <x-flashMsg message="{{ session('status') }}" type="success" />
+                    @endif
                     {{-- VALIDATION ERRORS --}}
                     @if ($errors->any())
                         <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -41,7 +44,7 @@
                             </div>
                         </div>
                     @endif
-                    <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST" data-loading-button>
                         @csrf
                         <div>
                             <label for="email"
@@ -70,7 +73,7 @@
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
                         </div>
-                        <div class="flex  items-end">
+                        <div class="flex justify-end text-blue-500">
                             {{-- <div class="flex "> --}}
                             <a href="{{ route('password.request') }}"
                                 class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
@@ -78,9 +81,17 @@
                             {{-- </div> --}}
 
                         </div>
-                        <button type="submit"
-                            class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Sign
-                            in</button>
+                        <button type="submit" data-loading-button
+                            class="w-full flex items-center justify-center gap-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                            <svg data-spinner class="hidden animate-spin h-4 w-4 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                            </svg>
+
+                            <span data-button-text>Sign in</span>
+                        </button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet? <a href="{{ route('show.register') }}"
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
