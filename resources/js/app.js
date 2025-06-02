@@ -1,22 +1,24 @@
 import "./bootstrap";
 
-document
-    .getElementById("product-image")
-    .addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById("imagePreview");
+document.addEventListener("DOMContentLoaded", () => {
+    const forms = document.querySelectorAll("form[data-loading-button]");
 
-        if (file) {
-            const reader = new FileReader();
+    forms.forEach((form) => {
+        const button = form.querySelector("button[data-loading-button]");
+        const spinner = form.querySelector("[data-spinner]");
+        const text = form.querySelector("[data-button-text]");
 
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                // preview.classList.remove("hidden");
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "#";
-            // preview.classList.add("hidden");
+        if (!button) {
+            console.warn("No submit button found for form", form);
+            return;
         }
+
+        form.addEventListener("submit", () => {
+            button.disabled = true;
+            button.classList.add("cursor-not-allowed", "opacity-50");
+
+            if (text) text.textContent = "Please wait...";
+            if (spinner) spinner.classList.remove("hidden");
+        });
     });
+});

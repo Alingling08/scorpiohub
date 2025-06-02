@@ -1,5 +1,6 @@
 <x-layout>
-    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data"
+        data-loading-button>
 
 
         {{-- CSRF Token --}}
@@ -164,10 +165,40 @@
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <a href="{{ route('products.show', $product->id) }}"
                 class="text-sm/6 font-semibold text-gray-900">Cancel</a>
-            <button type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
+            <button type="submit" data-loading-button
+                class="rounded-md  grow-3 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><svg
+                    data-spinner class="hidden animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                        stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+
+                <span data-button-text>Update</span></button>
         </div>
 
 
     </form>
+    <script>
+        document
+            .getElementById("product-image")
+            .addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById("imagePreview");
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        // preview.classList.remove("hidden");
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "#";
+                    // preview.classList.add("hidden");
+                }
+            });
+    </script>
 </x-layout>

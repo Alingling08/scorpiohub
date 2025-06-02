@@ -41,7 +41,7 @@
                     @endif
 
 
-                    <form class="max-w-sm mx-auto" action="{{ route('register') }}" method="POST">
+                    <form class="max-w-sm mx-auto" action="{{ route('register') }}" method="POST" data-loading-button>
                         @csrf
                         <div class="mb-5">
                             <label for="name"
@@ -100,9 +100,17 @@
                                 class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to our
                                 newsletter.</label>
                         </div>
-                        <button type="submit"
-                            class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Create
-                            an account</button>
+                        <button type="submit" data-loading-button
+                            class="w-full flex items-center justify-center gap-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                            <svg data-spinner class="hidden animate-spin h-4 w-4 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                            </svg>
+
+                            <span data-button-text>Create an account</span>
+                        </button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <a href="{{ route('show.login') }}"
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login
