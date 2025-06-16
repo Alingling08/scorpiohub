@@ -27,3 +27,21 @@
 <p><strong>Route Protection:</strong> Certain routes are accessible only to authenticated users.</p>
 <p><strong>Session Management:</strong> Users remain logged in until they log out.</p>
 <p><strong>Blade Templating:</strong> Clean separation of logic and presentation.</p>
+
+<h2>Images:</h2><br>
+
+**Sign Up Verify Notification**<br>
+![image](https://github.com/user-attachments/assets/78d4a06d-9f0b-43ac-8551-b39275a9770d)
+
+**Verify Email**<br>
+![image](https://github.com/user-attachments/assets/5251b4f9-f8ee-43ad-bf25-1c9e3a5d69c8)
+
+**Create Product**<br>
+![image](https://github.com/user-attachments/assets/d7b5c9b6-b93c-4c54-a116-1f665f168cd6)
+
+**Product List**<br>
+![image](https://github.com/user-attachments/assets/2e8fd3ff-ff9d-4b88-a4b8-9977219e1dc9)
+
+**Product View with Update & Delete Feature**
+![image](https://github.com/user-attachments/assets/1afa6ebf-13df-44bb-b562-79c465cb60fb)
+
